@@ -1,0 +1,22 @@
+2020-10-08 18:32:04.662 xcodebuild[806:6983] [MT] IDETestOperationsObserverDebug: 369.716 elapsed -- Testing started completed.
+2020-10-08 18:32:04.662 xcodebuild[806:6983] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2020-10-08 18:32:04.662 xcodebuild[806:6983] [MT] IDETestOperationsObserverDebug: 369.716 sec, +369.716 sec -- end
+
+Failing tests:
+	my-tests:
+		SomeClass.testFileSaving()
+		OtherClass.testWhatHappens()
+
+** TEST EXECUTE FAILED **
+[18:32:08]: [31mExit status: 65
++--------------------+------+
+|       Test Results        |
++--------------------+------+
+| Number of tests    | 2202 |
+| Number of failures | [31m1[0m    |
++--------------------+------+
+
+%% more info %%
+
+[31m
+[!] Test execution failed.[0m

@@ -1,0 +1,33 @@
+name: 'Tail Action'
+description: 'Retrieve the last n lines of a file or string.'
+inputs:
+  path:
+    description: 'The filepath to retrieve lines from. Must provide a path or a string.'
+    required: false
+  string:
+    description: 'The string to retrieve lines from. Must provide a path or a string.'
+    required: false
+  line-count:
+    description: 'The number of lines to retrieve.'
+    default: 10
+outputs:
+  content: 
+    description: 'The retrieved lines.'
+    value: ${{ steps.tail.outputs.content }}
+runs:
+  using: "composite"
+  steps: 
+    - run: |
+        if [[ "${{ inputs.path }}" != "" ]]; then
+          cp ${{ inputs.path }} /tmp/tail.txt
+        else
+          echo "${{ inputs.string }}" > /tmp/tail.txt
+        fi
+
+        TAIL_CONTENT=`tail -n ${{ inputs.line-count }} /tmp/tail.txt`
+        TAIL_CONTENT="${TAIL_CONTENT//'%'/%25}"
+        TAIL_CONTENT="${TAIL_CONTENT//$'\n'/%0A}"
+        TAIL_CONTENT="${TAIL_CONTENT//$'\r'/%0D}"
+        echo "::set-output name=content::$TAIL_CONTENT"
+      shell: bash
+      id: tail

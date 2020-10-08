@@ -1,0 +1,39 @@
+name: Test Funtionality
+on: push
+
+jobs:
+  test_file:
+    strategy:
+      matrix:
+        os: ['macos-latest', 'ubuntu-latest']
+    runs-on: ${{ matrix.os }}
+    name: Test Tailing A File
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+        id: tail
+        with:
+          path: test/build.log
+      - name: Print Tail Contents
+        run: echo "${{ steps.tail.outputs.content }}"
+  test_string:
+    strategy:
+      matrix:
+        os: ['macos-latest', 'ubuntu-latest']
+    runs-on: ${{ matrix.os }}
+    name: Test Tailing A String
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+        id: tail
+        with: 
+          string: |-
+            Beginning Log File
+            Perform Some Action
+            Run Some Commands
+            Oh No, There Was An Error
+            This Is The Error
+            End Log File
+          line-count: 3
+      - name: Print Tail Contents
+        run: echo "${{ steps.tail.outputs.content }}"
