@@ -25,7 +25,7 @@ The retrieved lines.
 ## Example usage
 
 ```yaml
-- uses: justAnotherDev/tail-action@v1
+- uses: scribd/tail-action@v1
   id: tail
   with:
     path: xcode-build.log
@@ -33,4 +33,4 @@ The retrieved lines.
 - run: echo "${{ steps.tail.outputs.content }}"
 ```
 
-More examples [here](https://github.com/justAnotherDev/tail-action/blob/master/.github/workflows/test.yml).
+More examples [here](https://github.com/scribd/tail-action/blob/master/.github/workflows/test.yml).
