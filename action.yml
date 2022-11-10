@@ -25,9 +25,10 @@ runs:
         fi
 
         TAIL_CONTENT=`tail -n ${{ inputs.line-count }} /tmp/tail.txt`
-        TAIL_CONTENT="${TAIL_CONTENT//'%'/%25}"
-        TAIL_CONTENT="${TAIL_CONTENT//$'\n'/%0A}"
-        TAIL_CONTENT="${TAIL_CONTENT//$'\r'/%0D}"
-        echo "::set-output name=content::$TAIL_CONTENT"
+
+        delimiter="$(openssl rand -hex 8)"
+        echo "content<<${delimiter}" >> $GITHUB_OUTPUT
+        echo "$TAIL_CONTENT" >> $GITHUB_OUTPUT
+        echo "${delimiter}" >> $GITHUB_OUTPUT
       shell: bash
       id: tail
